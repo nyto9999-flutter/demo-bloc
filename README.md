@@ -1,16 +1,50 @@
-# demo_bloc
+## 個人筆記
+[資料來源](https://www.youtube.com/watch?v=THCkkQ-V1-8&list=PLptHs0ZDJKt9bJOOuaOXdCLSo7ir6gfVN)
 
-A new Flutter project.
+# Bloc VS Cubit
 
-## Getting Started
+## Bloc
 
-This project is a starting point for a Flutter application.
+- events觸發state
 
-A few resources to get you started if this is your first Flutter project:
+```dart
+abstract class CounterEvent {}
+class CounterIncrementPressed extends CounterEvent {}
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+class CounterBloc extends Bloc<CounterEvent, int> {
+  CounterBloc() : super(0) {
+    on<CounterIncrementPressed>((event, emit) => emit(state + 1));
+  }
+}
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Cubit
+
+- cubit is part of bloc
+- function觸發state
+
+```dart
+class CounterCubit extends Cubit<int> {
+  CounterCubit() : super(0);
+
+  void increment() => emit(state + 1);
+}
+```
+
+## BlocProvider
+
+- blocProvider 也是 DI widget
+- provide a single instance of BLoC to the subtree below it
+- blocProvider
+
+## BlocBuilder
+
+- A Widget that hellps re-building the UI based on bloc state changes
+- It is located between the state changes and UI
+- BlockBuilder require bloc or cubic and the builder function `builder: (context, state)`
+- BlockBuilder can be called mutiple times inside Flutter widgets
+- It is not recommend calling dialog with BlockBuilder
+
+## BlockListener
+
+….continue
