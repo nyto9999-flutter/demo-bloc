@@ -1,4 +1,4 @@
-import 'package:demo_bloc/cubit/counter_cubit.dart';
+import 'package:demo_bloc/business_logic/cubits/counter_cubit.dart';
 import 'package:demo_bloc/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';

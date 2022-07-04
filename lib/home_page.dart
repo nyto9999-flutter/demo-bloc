@@ -1,4 +1,4 @@
-import 'package:demo_bloc/cubit/counter_cubit.dart';
+import 'package:demo_bloc/business_logic/cubits/counter_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,14 +13,28 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Column(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('You have pushed the button this many times'),
-            BlocBuilder<CounterCubit, CounterState>(
+            const Text('You have pushed the button this many times'),
+            BlocConsumer<CounterCubit, CounterState>(
+              listener: ((context, state) {
+                if (state.wasIncremented == true) {
+                  Scaffold.of(context).showSnackBar(const SnackBar(
+                    content: Text('Incremented'),
+                    duration: Duration(milliseconds: 300),
+                  ));
+                } else if (state.wasIncremented == false) {
+                  Scaffold.of(context).showSnackBar(const SnackBar(
+                    content: Text('Decremented!'),
+                    duration: Duration(milliseconds: 300),
+                  ));
+                }
+              }),
               builder: (context, state) {
                 return Text(
                   state.counterValue.toString(),
@@ -49,6 +63,8 @@ class _HomePageState extends State<HomePage> {
               ],
             )
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
