@@ -1,24 +1,31 @@
-import 'package:demo_bloc/business_logic/cubits/counter_cubit.dart';
-import 'package:demo_bloc/home_page.dart';
+import 'package:demo_bloc/ui/router/app_router.dart';
 import 'package:flutter/material.dart';
-import 'package:bloc/bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final AppRouter _appRouter = AppRouter();
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider<CounterCubit>(
-      create: (context) => CounterCubit(),
-      child: const MaterialApp(
-        title: 'Bloc demo',
-        home: HomePage(title: 'BLoC Demo'),
-      ),
+    return MaterialApp(
+      title: 'Bloc demo',
+      onGenerateRoute: _appRouter.onGenerateRoute,
     );
+  }
+
+  @override
+  void dispose() {
+    _appRouter.dispose();
+    super.dispose();
   }
 }

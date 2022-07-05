@@ -1,15 +1,18 @@
-import 'package:demo_bloc/business_logic/cubits/counter_cubit.dart';
+import 'package:demo_bloc/logic/cubits/counter_cubit.dart';
+import 'package:demo_bloc/ui/screens/second_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required this.title}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key, required this.title, required this.colors})
+      : super(key: key);
   final String title;
+  final Color colors;
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -51,16 +54,25 @@ class _HomePageState extends State<HomePage> {
                     BlocProvider.of<CounterCubit>(context).decrement();
                   },
                   tooltip: 'Decrement',
-                  child: Icon(Icons.remove),
+                  child: const Icon(Icons.remove),
                 ),
                 FloatingActionButton(
                   onPressed: () {
                     BlocProvider.of<CounterCubit>(context).increment();
                   },
+                  heroTag: Text(widget.title),
                   tooltip: 'Increment',
-                  child: Icon(Icons.add),
+                  child: const Icon(Icons.add),
                 ),
               ],
+            ),
+            const SizedBox(height: 24),
+            MaterialButton(
+              color: widget.colors,
+              onPressed: () {
+                Navigator.pushNamed(context, '/second');
+              },
+              child: const Text('Go to Second Screen'),
             )
           ],
         ),
