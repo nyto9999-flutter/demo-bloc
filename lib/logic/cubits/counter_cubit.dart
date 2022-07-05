@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'package:demo_bloc/constants/enums.dart';
+import 'package:meta/meta.dart';
 import 'package:bloc/bloc.dart';
+import 'package:demo_bloc/logic/cubits/internet_cubit.dart';
 import 'package:equatable/equatable.dart';
 part 'counter_state.dart';
 

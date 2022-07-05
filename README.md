@@ -46,5 +46,23 @@ class CounterCubit extends Cubit<int> {
 - It is not recommend calling dialog with BlockBuilder
 
 ## BlockListener
+- BlocListenr listens to the stream of data, BlocBuilder listens and rebuilt the UI, so It is safe to put blcListenr at the top of tree
 
-….continue
+## BlocConsumer
+- BlockBuilder + BlockListener = BlocConsumer
+
+
+## BlockListener vs StreamSubscription
+
+### BlockListener
+- Pros
+  -it takes care INTERNALLY of all StreamSubscription
+  -No need to worry about stream/memory leaks
+### StreamSubscription
+- Pros
+  - organised structured, easy to read and maintain
+  -will help you practice stream skills
+- Cons
+  -it may get cluttered really fast on huge apps
+  -not closing streamSubscription => huge memory leaks
+
